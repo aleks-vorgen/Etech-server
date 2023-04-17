@@ -16,7 +16,7 @@ public class CategoryController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    //@GetMapping("/categories")
+    @GetMapping("/categories")
     public List<Category> getCategoryList() {
         return categoryRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
