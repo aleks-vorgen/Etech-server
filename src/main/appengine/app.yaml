@@ -1,3 +1,10 @@
-runtime: java11
-instance_class: F4
-entrypoint: java -jar etech-1.0-jar-with-dependencies.jar
+runtime: custom
+env: flex
+runtime_config:
+  docker:
+    image: europe-west3-docker.pkg.dev/etech-server/etech-repository/etech
+handlers:
+  - url: /.*
+    script: this field is required, but ignored
+manual_scaling:
+  instances: 1
