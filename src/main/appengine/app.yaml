@@ -2,7 +2,7 @@ runtime: custom
 env: flex
 runtime_config:
   docker:
-    image: europe-west3-docker.pkg.dev/etech-server/etech-repository/etech
+    image: eu.gcr.io/etech-server/etech
 handlers:
   - url: /.*
     script: this field is required, but ignored
