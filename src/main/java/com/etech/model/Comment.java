@@ -16,7 +16,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String commentText;
+    private String comment;
     private short rating;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -27,7 +27,7 @@ public class Comment {
     private Date createDate;
 
     public Comment(String commentText, short rating, User user, Product product) {
-        this.commentText = commentText;
+        this.comment = commentText;
         this.rating = rating;
         this.user = user;
         this.product = product;
