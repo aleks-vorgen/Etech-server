@@ -6,5 +6,10 @@ runtime_config:
 handlers:
   - url: /.*
     script: this field is required, but ignored
+    http_headers:
+      Access-Control-Allow-Origin: "http://localhost:5173", "https://etechcli.netlify.app"
+      Access-Control-Allow-Methods: "GET, POST, PUT, DELETE"
+      Access-Control-Allow-Headers: "Content-Type, Authorization"
+      Access-Control-Allow-Credentials: true
 manual_scaling:
   instances: 1
