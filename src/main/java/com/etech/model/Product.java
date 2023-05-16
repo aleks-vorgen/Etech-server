@@ -20,16 +20,18 @@ public class Product {
     private Category category;
     private String title;
     private BigDecimal price;
+    private String producer;
     private short discount;
     private short amount;
     private String description;
     private String imgPath;
 
-    public Product(Category category, String title, BigDecimal price,
+    public Product(Category category, String title, BigDecimal price, String producer,
                    short discount, short amount, String description, String imgPath) {
         this.category = category;
         this.title = title;
         this.price = price;
+        this.producer = producer;
         this.discount = discount;
         this.amount = amount;
         this.description = description;
