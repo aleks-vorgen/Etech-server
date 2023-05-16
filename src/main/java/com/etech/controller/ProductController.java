@@ -19,7 +19,7 @@ public class ProductController {
     public List<Product> getProductList(
             @RequestParam(name = "title", required = false) String title,
             @RequestParam(name = "producer", required = false) String producer) {
-        if (title.isBlank())
+        if (title == null || title.isBlank())
             return productRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         else {
             System.out.println(productRepository.findAllByTitleContainsIgnoreCaseOrProducerContainsIgnoreCase(title, producer));
@@ -30,6 +30,6 @@ public class ProductController {
     @GetMapping("{id}")
     public Product getProductById(
             @PathVariable Long id) {
-        return productRepository.getReferenceById(id);
+        return productRepository.findById(id).orElse(null);
     }
 }
