@@ -4,10 +4,7 @@ import com.etech.model.Product;
 import com.etech.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,11 +16,20 @@ public class ProductController {
     private ProductRepository productRepository;
 
     @GetMapping("all")
-    public List<Product> getProductList(@RequestParam(name = "title", required = false) String title) {
+    public List<Product> getProductList(
+            @RequestParam(name = "title", required = false) String title,
+            @RequestParam(name = "producer", required = false) String producer) {
         if (title.isBlank())
             return productRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         else {
-            return productRepository.findAllByTitleContainsIgnoreCase(title);
+            System.out.println(productRepository.findAllByTitleContainsIgnoreCaseOrProducerContainsIgnoreCase(title, producer));
+            return productRepository.findAllByTitleContainsIgnoreCaseOrProducerContainsIgnoreCase(title, producer);
         }
+    }
+
+    @GetMapping("{id}")
+    public Product getProductById(
+            @PathVariable Long id) {
+        return productRepository.getReferenceById(id);
     }
 }
