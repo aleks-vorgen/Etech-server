@@ -19,17 +19,22 @@ public class ProductController {
     public List<Product> getProductList(
             @RequestParam(name = "title", required = false) String title,
             @RequestParam(name = "producer", required = false) String producer) {
-        if (title == null || title.isBlank())
+        if ((title == null || title.isBlank()) &&
+                (producer == null || producer.isBlank()))
             return productRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
-        else {
-            System.out.println(productRepository.findAllByTitleContainsIgnoreCaseOrProducerContainsIgnoreCase(title, producer));
+        else
             return productRepository.findAllByTitleContainsIgnoreCaseOrProducerContainsIgnoreCase(title, producer);
-        }
     }
 
-    @GetMapping("{id}")
+    @GetMapping("id={id}")
     public Product getProductById(
             @PathVariable Long id) {
         return productRepository.findById(id).orElse(null);
+    }
+
+    @GetMapping("category={category}")
+    public List<Product> getProductListByCategoryTitle(
+            @PathVariable String category) {
+        return productRepository.findAllByCategory_Title(category);
     }
 }
