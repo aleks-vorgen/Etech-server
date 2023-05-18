@@ -12,4 +12,5 @@ import java.util.List;
 public interface ProductRepository extends PagingAndSortingRepository<Product, Long>,
         CrudRepository<Product, Long>, JpaRepository<Product, Long> {
     List<Product> findAllByTitleContainsIgnoreCaseOrProducerContainsIgnoreCase(String title, String producer);
+    List<Product> findAllByCategory_Title(String category);
 }
