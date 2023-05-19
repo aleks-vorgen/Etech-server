@@ -41,10 +41,12 @@ public class ImageController {
         return downloadImage(fileName, categoriesUploadDir);
     }
 
+    @PostMapping("product")
     public ResponseEntity<?> uploadProductImage(@RequestParam("file") MultipartFile file) {
         return uploadImage(file, productsUploadDir);
     }
 
+    @PostMapping("category")
     public ResponseEntity<?> uploadCategoryImage(@RequestParam("file") MultipartFile file) {
         return uploadImage(file, categoriesUploadDir);
     }
