@@ -32,8 +32,9 @@ public class Order {
 
     private Date createDate;
 
-    public Order(User user, OrderStatus orderStatus) {
+    public Order(User user, OrderStatus orderStatus, List<Product> productList) {
         this.user = user;
         this.orderStatus = orderStatus;
+        this.productList = productList;
     }
 }

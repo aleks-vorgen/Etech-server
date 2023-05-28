@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -17,14 +18,16 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "parent_id")
-    private Category parentCategory;
+    @OneToMany
+    @JoinTable(name = "child_category_list",
+            joinColumns = @JoinColumn(name = "parent_category_id"),
+            inverseJoinColumns = @JoinColumn(name = "child_category_id"))
+    private List<Category> childCategories;
     private String title;
     private Date createDate;
 
-    public Category(Category parentCategory, String title) {
-        this.parentCategory = parentCategory;
+    public Category(Category parentCategory, List<Category> childCategories) {
+        this.childCategories = childCategories;
         this.title = title;
     }
 }
