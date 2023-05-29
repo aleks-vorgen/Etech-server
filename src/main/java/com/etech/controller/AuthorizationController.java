@@ -3,11 +3,12 @@ package com.etech.controller;
 import com.etech.model.User;
 import com.etech.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
@@ -17,17 +18,5 @@ import java.util.Objects;
 public class AuthorizationController {
 
     @Autowired
-    private UserService service;
-
-    @PostMapping(path = "/login")
-    public User getAuthUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null) {
-            return null;
-        }
-        Object principal = auth.getPrincipal();
-        User user = (principal instanceof User) ? (User) principal : null;
-        return Objects.nonNull(user) ? this.service.getByLogin(user.getUsername()) : null;
-    }
-
+    private UserService userService;
 }

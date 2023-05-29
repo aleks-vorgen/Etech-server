@@ -1,44 +1,54 @@
 package com.etech;
 
-import com.etech.security.JwtTokenRepository;
 import com.etech.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.servlet.HandlerExceptionResolver;
 
 @Configuration
-@EnableWebSecurity
-public class SpringSecurityConfig {
-
+@EnableConfigurationProperties
+public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private UserService service;
+    UserService userDetailsService;
 
-    @Autowired
-    private JwtTokenRepository jwtTokenRepository;
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        //TODO divide by roles
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/categories/**").hasRole("ADMIN")
+                .antMatchers("/auth/**").permitAll()
+                .anyRequest().authenticated()
+                .and().httpBasic()
+                .and().sessionManagement().disable();
+    }
 
-    @Autowired
-    @Qualifier("handlerExceptionResolver")
-    private HandlerExceptionResolver resolver;
+    @Override
+    public void configure(AuthenticationManagerBuilder builder)
+            throws Exception {
+        builder.userDetailsService(userDetailsService);
+    }
 
     @Bean
-    public PasswordEncoder devPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
-    }
-    //@Override
-    protected void configure(HttpSecurity http) throws Exception {
+    public PasswordEncoder passwordEncoder() {
+        return new PasswordEncoder() {
+            @Override
+            public String encode(CharSequence rawPassword) {
+                return (String) rawPassword;
+            }
 
+            @Override
+            public boolean matches(CharSequence rawPassword, String encodedPassword) {
+                return rawPassword.toString().equals(encodedPassword);
+            }
+        };
     }
-
-    //@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(this.service);
-    }
-
 }

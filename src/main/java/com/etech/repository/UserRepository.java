@@ -14,4 +14,5 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long>,
         CrudRepository<User, Long>, JpaRepository<User, Long> {
 
     List<User> findByEmail(@Param("email") String email);
+    User findByUsername(@Param("username") String username);
 }
