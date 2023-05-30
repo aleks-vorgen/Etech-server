@@ -3,7 +3,7 @@ package com.etech.model;
 import lombok.Data;
 
 @Data
-public class LoginRequest {
+public class AuthenticationRequest {
     private String username;
     private String password;
 }
