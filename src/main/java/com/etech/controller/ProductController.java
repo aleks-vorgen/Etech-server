@@ -12,6 +12,8 @@ import java.util.List;
 @RequestMapping("products")
 public class ProductController {
 
+    private final static short DISCOUNT = 30;
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -36,5 +38,10 @@ public class ProductController {
     public List<Product> getProductListByCategoryTitle(
             @PathVariable String category) {
         return productRepository.findAllByCategory_Title(category);
+    }
+
+    @GetMapping("offers")
+    public List<Product> getOfferProductsWithImages() {
+        return productRepository.findByDiscountGreaterThanEqual(DISCOUNT);
     }
 }

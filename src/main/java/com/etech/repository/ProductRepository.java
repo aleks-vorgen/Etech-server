@@ -13,4 +13,6 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
         CrudRepository<Product, Long>, JpaRepository<Product, Long> {
     List<Product> findAllByTitleContainsIgnoreCaseOrProducerContainsIgnoreCase(String title, String producer);
     List<Product> findAllByCategory_Title(String category);
+
+    List<Product> findByDiscountGreaterThanEqual(short discount);
 }
