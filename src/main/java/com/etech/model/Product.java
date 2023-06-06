@@ -1,20 +1,18 @@
 package com.etech.model;
 
-import javax.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Data
 @Table(name = "products")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     private Category category;
@@ -25,16 +23,4 @@ public class Product {
     private short amount;
     private String description;
     private String imgPath;
-
-    public Product(Category category, String title, BigDecimal price, String producer,
-                   short discount, short amount, String description, String imgPath) {
-        this.category = category;
-        this.title = title;
-        this.price = price;
-        this.producer = producer;
-        this.discount = discount;
-        this.amount = amount;
-        this.description = description;
-        this.imgPath = imgPath;
-    }
 }

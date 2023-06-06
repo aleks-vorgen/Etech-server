@@ -1,20 +1,18 @@
 package com.etech.model;
 
-import javax.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Data
 @Table(name = "comments")
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String comment;
     private short rating;
@@ -25,11 +23,4 @@ public class Comment {
     @JoinColumn(name = "product_id")
     private Product product;
     private Date createDate;
-
-    public Comment(String commentText, short rating, User user, Product product) {
-        this.comment = commentText;
-        this.rating = rating;
-        this.user = user;
-        this.product = product;
-    }
 }

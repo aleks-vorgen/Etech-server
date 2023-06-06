@@ -1,25 +1,26 @@
 package com.etech.model;
 
-import javax.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Data
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private String lastname;
+    private String firstname;
+    private String middlename;
+    private String email;
+    private String phone;
+    private String comment;
     @ManyToOne
     @JoinColumn(name = "order_status_id")
     private OrderStatus orderStatus;
@@ -31,10 +32,4 @@ public class Order {
     private List<Product> productList;
 
     private Date createDate;
-
-    public Order(User user, OrderStatus orderStatus, List<Product> productList) {
-        this.user = user;
-        this.orderStatus = orderStatus;
-        this.productList = productList;
-    }
 }

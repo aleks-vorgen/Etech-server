@@ -1,22 +1,19 @@
 package com.etech.model;
 
-import javax.persistence.*;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Data
 @Table(name = "categories")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany
     @JoinTable(name = "child_category_list",
@@ -25,9 +22,4 @@ public class Category {
     private List<Category> childCategories;
     private String title;
     private Date createDate;
-
-    public Category(Category parentCategory, List<Category> childCategories) {
-        this.childCategories = childCategories;
-        this.title = title;
-    }
 }

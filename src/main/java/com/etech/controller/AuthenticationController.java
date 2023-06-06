@@ -50,6 +50,10 @@ public class AuthenticationController {
 
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);
+            response.put("lastname", user.getLastname());
+            response.put("firstname", user.getFirstname());
+            response.put("middlename", user.getMiddlename());
+            response.put("email", user.getEmail());
             response.put("token", token);
             response.put("role", user.getPermissions().getPermission());
 
