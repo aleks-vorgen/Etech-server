@@ -15,4 +15,5 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
     List<Product> findAllByCategory_Title(String category);
 
     List<Product> findByDiscountGreaterThanEqual(short discount);
+    Product findTopByOrderByIdDesc();
 }

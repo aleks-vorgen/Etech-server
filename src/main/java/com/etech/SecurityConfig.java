@@ -42,11 +42,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(AUTHENTICATION_ENDPOINT, PRODUCTS_ENDPOINT,
                         CATEGORIES_ENDPOINT, IMAGES_ENDPOINT, ORDERS_ENDPOINT).permitAll()
-                .antMatchers(USERS_ENDPOINT).hasRole("USER")
+                .antMatchers(USERS_ENDPOINT).hasAnyRole("USER", "MANAGER", "ADMIN")
                 //.antMatchers().hasRole("MANAGER")
                 .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
+
+        http.cors();
     }
 }

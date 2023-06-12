@@ -12,4 +12,5 @@ import java.util.List;
 public interface CategoryRepository extends PagingAndSortingRepository<Category, Long>,
         CrudRepository<Category, Long>, JpaRepository<Category, Long> {
     List<Category> findAllByTitleContainsIgnoreCase(String title);
+    List<Category> findAllByChildCategoriesEmpty();
 }
