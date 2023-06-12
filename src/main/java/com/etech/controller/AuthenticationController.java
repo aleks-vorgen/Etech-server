@@ -1,7 +1,8 @@
 package com.etech.controller;
 
-import com.etech.model.AuthenticationRequest;
+import com.etech.model.dto.AuthenticationRequestDto;
 import com.etech.model.User;
+import com.etech.model.dto.RegistrationRequestDto;
 import com.etech.security.jwt.JwtTokenProvider;
 import com.etech.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +34,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("login")
-    public ResponseEntity<?> login(@RequestBody AuthenticationRequest requestDto) {
+    public ResponseEntity<?> login(@RequestBody AuthenticationRequestDto requestDto) {
         try {
             String username = requestDto.getUsername();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
@@ -61,5 +59,16 @@ public class AuthenticationController {
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegistrationRequestDto requestDto) {
+        User regUser = new User();
+        regUser.setUsername(requestDto.getUsername());
+        regUser.setEmail(requestDto.getEmail());
+        regUser.setPassword(requestDto.getPassword());
+        userService.register(regUser);
+
+        return ResponseEntity.ok(regUser.getUsername());
     }
 }

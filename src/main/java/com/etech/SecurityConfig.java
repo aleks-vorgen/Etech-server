@@ -14,7 +14,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider jwtTokenProvider;
 
     private final static String ADMIN_ENDPOINT = "/admin/**";
-    private final static String AUTHENTICATION_ENDPOINT = "/auth/login";
+    private final static String AUTHENTICATION_ENDPOINT = "/auth/**";
     private final static String PRODUCTS_ENDPOINT = "/products/**";
     private final static String CATEGORIES_ENDPOINT = "/categories/**";
     private final static String IMAGES_ENDPOINT = "/images/**";
@@ -35,6 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors()
+                .and()
                 .httpBasic().disable()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -48,7 +50,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
-
-        http.cors();
     }
 }
