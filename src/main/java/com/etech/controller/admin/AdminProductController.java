@@ -7,10 +7,7 @@ import com.etech.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/products")
@@ -42,5 +39,11 @@ public class AdminProductController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
         return ResponseEntity.ok(productRepository.findTopByOrderByIdDesc());
+    }
+
+    @DeleteMapping("{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        productRepository.deleteById(id);
+        return "Товар успішно видалено";
     }
 }
