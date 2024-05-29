@@ -27,7 +27,8 @@ public class AuthenticationController {
     private final UserService userService;
 
     @Autowired
-    public AuthenticationController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService) {
+    public AuthenticationController(AuthenticationManager authenticationManager,
+                                    JwtTokenProvider jwtTokenProvider, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
@@ -37,14 +38,16 @@ public class AuthenticationController {
     public ResponseEntity<?> login(@RequestBody AuthenticationRequestDto requestDto) {
         try {
             String username = requestDto.getUsername();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, requestDto.getPassword())
+            );
             User user = userService.findByUsername(username);
 
             if (user == null) {
                 throw new UsernameNotFoundException("User with username: " + username + " not found");
             }
 
-            String token = jwtTokenProvider.createToken(username, user.getPermissions());
+            String token = jwtTokenProvider.createToken(username, user.getPermission());
 
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);
@@ -53,7 +56,7 @@ public class AuthenticationController {
             response.put("middlename", user.getMiddlename());
             response.put("email", user.getEmail());
             response.put("token", token);
-            response.put("role", user.getPermissions().getPermission());
+            response.put("role", user.getPermission().getPermission());
 
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
@@ -67,8 +70,7 @@ public class AuthenticationController {
         regUser.setUsername(requestDto.getUsername());
         regUser.setEmail(requestDto.getEmail());
         regUser.setPassword(requestDto.getPassword());
-        userService.register(regUser);
 
-        return ResponseEntity.ok(regUser.getUsername());
+        return ResponseEntity.ok(userService.register(regUser).getUsername());
     }
 }

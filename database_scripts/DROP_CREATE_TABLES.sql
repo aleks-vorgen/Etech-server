@@ -19,7 +19,7 @@ CREATE TABLE categories (
 
 CREATE TABLE permissions (
     id SERIAL PRIMARY KEY,
-    permission VARCHAR(20) DEFAULT ('User')
+    permission VARCHAR(20)
 );
 
 CREATE TABLE users (
@@ -31,7 +31,7 @@ CREATE TABLE users (
     phone VARCHAR(15),
     email VARCHAR(50),
     password VARCHAR(255),
-    permission_id INTEGER,
+    permission_id INTEGER DEFAULT 2,
     create_date DATE DEFAULT (CURRENT_DATE),
     FOREIGN KEY (permission_id) REFERENCES permissions(id)
 );
