@@ -9,7 +9,7 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @Data
 @Table(name = "permissions")
-public class Permissions {
+public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -22,6 +22,6 @@ public class User {
     private String password;
     @ManyToOne
     @JoinColumn(name = "permission_id")
-    private Permissions permissions;
+    private Permission permission;
     private Date createDate;
 }

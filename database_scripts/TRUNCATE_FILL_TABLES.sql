@@ -16,7 +16,7 @@ TRUNCATE TABLE order_status CASCADE;
 TRUNCATE TABLE users CASCADE;
 TRUNCATE TABLE permissions CASCADE;
 
--- Заповнення таблиці permissions
+-- Заповнення таблиці permission
 INSERT INTO permissions (permission) VALUES
 ('admin'),
 ('user');
@@ -34,7 +34,7 @@ INSERT INTO order_status (title) VALUES
 
 -- Заповнення таблиці categories
 INSERT INTO categories (title, create_date) VALUES
-('Комп`ютери і ноутбуки', DEFAULT),	--1
+('Комп`ютери і ноутбуки', DEFAULT), 	--1
 	('Комп`ютери', DEFAULT),			--2
 	('Ноутбуки', DEFAULT),				--3
 ('Телефони і планшети', DEFAULT),		--4
@@ -45,10 +45,10 @@ INSERT INTO categories (title, create_date) VALUES
 	('Мікрохвильові печі', DEFAULT),	--9
 ('Комплектуючі до ПК', DEFAULT),		--10
 	('Відеокарти', DEFAULT),			--11
-	('Процесори', DEFAULT),			--12
-('Аксесуари', DEFAULT),				--13
-	('Навушники', DEFAULT),			--14
-	('Годинники', DEFAULT);			--15
+	('Процесори', DEFAULT),		    	--12
+('Аксесуари', DEFAULT),			    	--13
+	('Навушники', DEFAULT),		    	--14
+	('Годинники', DEFAULT);		    	--15
 
 -- Заповнення таблиці child_category_list
 INSERT INTO child_category_list (parent_category_id, child_category_id) VALUES
@@ -65,16 +65,16 @@ INSERT INTO child_category_list (parent_category_id, child_category_id) VALUES
 
 -- Заповнення таблиці products
 INSERT INTO products (category_id, title, price, producer, discount, amount, description, img_path, create_date) VALUES
-(5, 'Смартфон', 700, 'IPhone', 10, 100, 'IPhone 15 Pro Max', '/images/smartphone.png', DEFAULT),
-(6, 'Планшет', 500, 'IPad', 85, 100, 'Lenovo tablet 3. Має дефект - на боковій кромці подряпина', '/images/tablet.png', DEFAULT),
-(3, 'Ноутбук', 1000, 'Lenovo', 0, 200, 'Notebook Lenovo Ideapad 5', '/images/notebook.png', DEFAULT),
-(2, 'Комп`ютер', 1900, 'HyperX', 20, 150, 'HyperPC Last Generation', '/images/pc.png', DEFAULT),
-(8, 'Пральна машина', 650, 'Bosch', 5, 13, 'Bosch XN1340. Пральна машина з прямим приводом', '/images/washing-machine.png', DEFAULT),
-(9, 'Мікрохвильова піч', 400, 'LG', 0, 20, 'LG microwave oven', '/images/microwave.png', DEFAULT),
-(11, 'Відеокарта', 420, 'Nvidia', 0, 20, 'Graphics card. RTX3060TI', '/images/graphics-card.png', DEFAULT),
-(12, 'Процесор', 312, 'AMD', 0, 20, 'AMD Ryzen5 5800X', '/images/processor.png', DEFAULT),
-(14, 'Навушники', 50, 'Sony', 0, 20, 'Sony micro headset', '/images/headset.png', DEFAULT),
-(15, 'Годинники', 130, 'Xiaomi', 9, 20, 'Xiaomi watch', '/images/watch.png', DEFAULT);
+(5, 'Смартфон', 700, 'IPhone', 10, 100, 'IPhone 15 Pro Max', 'smartphone.png', DEFAULT),
+(6, 'Планшет', 500, 'IPad', 85, 100, 'Lenovo tablet 3. Має дефект - на боковій кромці подряпина', 'tablet.png', DEFAULT),
+(3, 'Ноутбук', 1000, 'Lenovo', 0, 200, 'Notebook Lenovo Ideapad 5', 'notebook.png', DEFAULT),
+(2, 'Комп`ютер', 1900, 'HyperX', 20, 150, 'HyperPC Last Generation', 'pc.png', DEFAULT),
+(8, 'Пральна машина', 650, 'Bosch', 5, 13, 'Bosch XN1340. Пральна машина з прямим приводом', 'washing-machine.png', DEFAULT),
+(9, 'Мікрохвильова піч', 400, 'LG', 0, 20, 'LG microwave oven', 'microwave.png', DEFAULT),
+(11, 'Відеокарта', 420, 'Nvidia', 0, 20, 'Graphics card. RTX3060TI', 'graphics-card.png', DEFAULT),
+(12, 'Процесор', 312, 'AMD', 0, 20, 'AMD Ryzen5 5800X', 'processor.png', DEFAULT),
+(14, 'Навушники', 50, 'Sony', 0, 20, 'Sony micro headset', 'headset.png', DEFAULT),
+(15, 'Годинники', 130, 'Xiaomi', 9, 20, 'Xiaomi watch', 'watch.png', DEFAULT);
 
 -- Заповнення таблиці orders
 INSERT INTO orders (lastname, firstname, middlename, phone, email, comment, order_status_id, create_date) VALUES

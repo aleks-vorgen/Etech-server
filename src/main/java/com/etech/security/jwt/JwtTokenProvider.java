@@ -1,6 +1,6 @@
 package com.etech.security.jwt;
 
-import com.etech.model.Permissions;
+import com.etech.model.Permission;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,9 +31,9 @@ public class JwtTokenProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToken(String username, Permissions permissions) {
+    public String createToken(String username, Permission permission) {
         Claims claims = Jwts.claims().setSubject(username);
-        claims.put("permission", getPermissionName(permissions));
+        claims.put("permission", getPermissionName(permission));
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityMs);
@@ -72,7 +72,7 @@ public class JwtTokenProvider {
         }
     }
 
-    private String getPermissionName(Permissions permissions) {
-        return permissions.getPermission();
+    private String getPermissionName(Permission permission) {
+        return permission.getPermission();
     }
 }

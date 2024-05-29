@@ -1,6 +1,6 @@
 package com.etech.security.jwt;
 
-import com.etech.model.Permissions;
+import com.etech.model.Permission;
 import com.etech.model.User;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -14,12 +14,12 @@ public final class JwtUserFactory {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
-                mapToGrantedAuthorities(user.getPermissions()),
+                mapToGrantedAuthorities(user.getPermission()),
                 user.getCreateDate()
         );
     }
 
-    private static SimpleGrantedAuthority mapToGrantedAuthorities(Permissions permissions) {
-        return new SimpleGrantedAuthority(permissions.getPermission());
+    private static SimpleGrantedAuthority mapToGrantedAuthorities(Permission permission) {
+        return new SimpleGrantedAuthority(permission.getPermission());
     }
 }
